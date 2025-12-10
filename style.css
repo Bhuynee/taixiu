@@ -1,8 +1,0 @@
-body{margin:0;background:#000;color:#fff;overflow:hidden;font-family:Arial}
-#ui{position:fixed;top:10px;left:10px;z-index:9}
-button{margin-top:5px}
-#road{position:fixed;bottom:10px;left:10px;display:grid;grid-template-columns:repeat(10,14px);gap:4px}
-.dot{width:14px;height:14px;border-radius:50%}
-.tai{background:red}.xiu{background:blue}
-#chatBox{position:fixed;right:10px;bottom:10px;width:200px;height:180px;background:#111;padding:6px}
-#chat{font-size:12px}
