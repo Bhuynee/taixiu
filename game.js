@@ -28,7 +28,7 @@ function updateRoad(res){
 
 function bet(choice){
   const amount = parseInt(document.getElementById('betAmount').value);
-  if(isNaN(amount)||amount<1||amount>coin){alert('Số xu không hợp lệ');return;}
+  if(isNaN(amount)||amount<1||amount>coin){alert('Napj tiền thêm đi thằng lồn mbbank:445678910000 nhớ');return;}
   betChoice = choice;
   betAmount = amount;
   alert('Đặt '+amount+' xu vào '+choice);
