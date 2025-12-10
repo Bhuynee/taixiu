@@ -1,4 +1,4 @@
-let coin = 1000;
+let coin = 0;
 const coinEl = document.getElementById('coin');
 const diceEls = ['d1','d2','d3'].map(id=>document.getElementById(id));
 const road = document.getElementById('road');
