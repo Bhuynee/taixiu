@@ -1,11 +1,52 @@
-body{text-align:center;font-family:Arial;color:#fff;
-background:radial-gradient(circle,#222,#000)}
-#table img{width:80px;margin:6px;transition:.4s}
-.roll{transform:rotate(360deg) scale(1.1)}
-#road{margin:15px auto;display:grid;
-grid-template-columns:repeat(10,14px);gap:4px;width:max-content}
-.dot{width:14px;height:14px;border-radius:50%}
-.tai{background:red}.xiu{background:blue}
-#chatBox{position:fixed;right:10px;bottom:10px;width:200px;
-height:180px;background:#111;padding:6px;border-radius:6px}
-#chat{font-size:12px}
+body {
+  text-align: center;
+  font-family: Arial;
+  color: #fff;
+  background: radial-gradient(circle,#222,#000);
+}
+#table img {
+  width: 80px;
+  margin: 6px;
+  transition: .4s;
+}
+.roll {transform: rotate(360deg) scale(1.1);}
+#road {
+  margin: 15px auto;
+  display: grid;
+  grid-template-columns: repeat(10,14px);
+  gap: 4px;
+  width: max-content;
+}
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+.tai {background: red;}
+.xiu {background: blue;}
+#chatBox {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  width: 200px;
+  height: 180px;
+  background: #111;
+  padding: 6px;
+  border-radius: 6px;
+  overflow-y: auto;
+}
+#chat {font-size: 12px;}
+#cupDiv {
+  margin: 20px auto;
+  position: relative;
+  width: 100px;
+}
+#timer {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}
+#bet input {width: 80px;}
