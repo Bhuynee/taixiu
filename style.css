@@ -1,114 +1,14 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(#800000, #000000);
-    color: #fff;
-}
-
-header {
-    text-align: center;
-    padding: 10px;
-    background-color: #330000;
-}
-
-.logo {
-    height: 50px;
-}
-
-nav {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0;
-}
-
-nav button {
-    margin: 0 5px;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #550000;
-    color: #fff;
-    cursor: pointer;
-}
-
-.tab-content {
-    display: none;
-    padding: 20px;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.choice-circle {
-    width: 80px;
-    height: 80px;
-    line-height: 80px;
-    text-align: center;
-    border-radius: 50%;
-    background-color: #990000;
-    display: inline-block;
-    margin: 0 20px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-button#btn-bet, #btn-auto-open {
-    padding: 10px 20px;
-    margin: 0 10px;
-    cursor: pointer;
-}
-
-.cup-area {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.cup-area img {
-    width: 100px;
-}
-
-.dice-area img {
-    width: 50px;
-    display: inline-block;
-    margin: 0 5px;
-}
-
-.fake-chat {
-    position: fixed;
-    right: 10px;
-    bottom: 10px;
-    width: 200px;
-    background-color: rgba(50,0,0,0.7);
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.fake-chat #chat-box {
-    height: 150px;
-    overflow-y: auto;
-    border: 1px solid #fff;
-    padding: 5px;
-    margin-bottom: 5px;
-}
-
-input, button {
-    margin: 5px 0;
-    border-radius: 5px;
-    border: none;
-    padding: 5px;
-}
-
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #330000;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-@media screen and (max-width: 600px) {
-    .choice-circle { width: 60px; height: 60px; line-height: 60px; }
-    .cup-area img { width: 80px; }
-}
+body { margin:0; font-family:Arial; background:linear-gradient(#800000,#000); color:#fff; }
+header { padding:10px; background:#330000; }
+nav { display:flex; justify-content:center; margin:10px 0; }
+nav button { margin:0 5px; padding:8px 15px; border:none; border-radius:5px; background:#550000; color:#fff; cursor:pointer; }
+.tab-content { display:none; padding:20px; }
+.tab-content.active { display:block; }
+.choice-circle { width:80px; height:80px; line-height:80px; text-align:center; border-radius:50%; background:#990000; display:inline-block; margin:0 20px; cursor:pointer; font-weight:bold; }
+button#btn-bet, #btn-open-cup { padding:10px 20px; margin:0 10px; cursor:pointer; }
+.cup-area { text-align:center; margin-top:20px; }
+.fake-chat { position:fixed; right:10px; bottom:10px; width:200px; background:rgba(50,0,0,0.7); padding:10px; border-radius:5px; }
+.fake-chat #chat-box { height:150px; overflow-y:auto; border:1px solid #fff; padding:5px; margin-bottom:5px; }
+input, button { margin:5px 0; border-radius:5px; border:none; padding:5px; }
+footer { text-align:center; padding:10px; background:#330000; }
+@media screen and (max-width:600px){ .choice-circle{width:60px;height:60px;line-height:60px;} }
