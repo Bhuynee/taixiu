@@ -1,82 +1,79 @@
-let coin = 0;
-const coinEl = document.getElementById('coin');
-const diceEls = ['d1','d2','d3'].map(id=>document.getElementById(id));
-const road = document.getElementById('road');
-const chat = document.getElementById('chat');
-let betChoice = null, betAmount = 0;
-let timer = 40, interval = null;
+let selectedBet = null;
+const betTai = document.getElementById("bet-tai");
+const betXiu = document.getElementById("bet-xiu");
+const placeBetBtn = document.getElementById("place-bet");
+const cup = document.getElementById("cup");
+const dice = document.getElementById("dice");
+const shakeBtn = document.getElementById("shakeBtn");
+const autoOpen = document.getElementById("autoOpen");
+const timerSpan = document.getElementById("timer");
+const historyCircles = document.getElementById("history-circles");
+const chatBox = document.getElementById("chat-box");
+const viewerCount = document.getElementById("viewer-count");
 
-function rand(){return Math.floor(Math.random()*6)+1;}
+let countdown = 40;
+let countdownInterval;
+let history = [];
 
-function roll(){
-  const vals = [rand(), rand(), rand()];
-  diceEls.forEach((el,i)=>{
-    el.src = `assets/dice/${vals[i]}.png`;
-    el.classList.add('roll');
-    setTimeout(()=>el.classList.remove('roll'),400);
+function selectBet(bet){
+  selectedBet = bet;
+  betTai.classList.toggle("selected", bet==="tai");
+  betXiu.classList.toggle("selected", bet==="xiu");
+}
+betTai.onclick = ()=>selectBet("tai");
+betXiu.onclick = ()=>selectBet("xiu");
+
+function randomDice(){
+  return Math.floor(Math.random()*6)+1;
+}
+
+function shakeCup(){
+  const d1=randomDice(),d2=randomDice(),d3=randomDice();
+  dice.style.opacity=1;
+  dice.children[0].src=`assets/dice${d1}.png`;
+  dice.children[1].src=`assets/dice${d2}.png`;
+  dice.children[2].src=`assets/dice${d3}.png`;
+  const sum=d1+d2+d3;
+  const result=sum>=11?"tai":"xiu";
+  history.push(result);
+  if(history.length>20) history.shift();
+  renderHistory();
+  addFakeChat(result);
+}
+
+shakeBtn.onclick=shakeCup;
+
+function renderHistory(){
+  historyCircles.innerHTML="";
+  history.forEach(r=>{
+    const c=document.createElement("div");
+    c.classList.add("history-circle",r);
+    historyCircles.appendChild(c);
   });
-  const sum = vals.reduce((a,b)=>a+b,0);
-  return sum >= 11 ? 'tai' : 'xiu';
 }
 
-function updateRoad(res){
-  const dot = document.createElement('div');
-  dot.className = 'dot '+res;
-  road.appendChild(dot);
-  if(road.children.length>100) road.removeChild(road.children[0]);
-}
-
-function bet(choice){
-  const amount = parseInt(document.getElementById('betAmount').value);
-  if(isNaN(amount)||amount<1||amount>coin){alert('Napj tiền thêm đi thằng lồn mbbank:445678910000 nhớ');return;}
-  betChoice = choice;
-  betAmount = amount;
-  alert('Đặt '+amount+' xu vào '+choice);
-}
-
-function napXu(){
-  const n = prompt('Nhập số xu nạp (demo)');
-  if(!n||isNaN(n)) return;
-  coin += parseInt(n);
-  coinEl.innerText = coin;
-}
-
-function startTimer(){
-  timer=40;
-  document.getElementById('timer').innerText = timer;
-  if(interval) clearInterval(interval);
-  interval = setInterval(()=>{
-    timer--;
-    document.getElementById('timer').innerText = timer;
-    if(timer<=0){
-      clearInterval(interval);
-      if(document.getElementById('autoOpen').checked){
-        openCup();
-      }
+function startCountdown(){
+  countdown=40;
+  timerSpan.textContent=countdown;
+  clearInterval(countdownInterval);
+  countdownInterval=setInterval(()=>{
+    countdown--;
+    timerSpan.textContent=countdown;
+    if(countdown<=0){
+      clearInterval(countdownInterval);
+      if(autoOpen.checked) shakeCup();
     }
   },1000);
 }
+startCountdown();
 
-function openCup(){
-  if(!betChoice){alert('Chưa đặt cược!');return;}
-  const res = roll();
-  updateRoad(res);
-  if(res===betChoice){coin+=betAmount}else{coin-=betAmount;}
-  coinEl.innerText = coin;
-  betChoice = null;
-  document.getElementById('betAmount').value='';
-  startTimer(); // bắt đầu ván mới
+function addFakeChat(result){
+  const messages=[
+    `T tất tay ${result} nè ae`,
+    `Ông kia vừa ăn 20tr kìa`,
+    `Chúc mừng ae thắng ${result}`
+  ];
+  chatBox.innerHTML+=`<div>${messages[Math.floor(Math.random()*messages.length)]}</div>`;
+  chatBox.scrollTop=chatBox.scrollHeight;
+  viewerCount.textContent=Math.floor(Math.random()*500+100);
 }
-
-document.getElementById('openCupBtn').onclick=openCup;
-
-startTimer();
-
-// Fake chat
-const msgs = ['🔥 Tài mạnh','Xỉu đều','All in','Cầu đẹp','Gãy cầu'];
-setInterval(()=>{
-  const p=document.createElement('div');
-  p.innerText = msgs[Math.floor(Math.random()*msgs.length)];
-  chat.appendChild(p);
-  if(chat.children.length>20) chat.removeChild(chat.children[0]);
-},2000);
