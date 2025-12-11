@@ -1,79 +1,85 @@
-let selectedBet = null;
-const betTai = document.getElementById("bet-tai");
-const betXiu = document.getElementById("bet-xiu");
-const placeBetBtn = document.getElementById("place-bet");
-const cup = document.getElementById("cup");
-const dice = document.getElementById("dice");
-const shakeBtn = document.getElementById("shakeBtn");
-const autoOpen = document.getElementById("autoOpen");
-const timerSpan = document.getElementById("timer");
-const historyCircles = document.getElementById("history-circles");
-const chatBox = document.getElementById("chat-box");
-const viewerCount = document.getElementById("viewer-count");
-
 let countdown = 40;
 let countdownInterval;
-let history = [];
+let autoOpen = false;
+let betChoice = null;
 
-function selectBet(bet){
-  selectedBet = bet;
-  betTai.classList.toggle("selected", bet==="tai");
-  betXiu.classList.toggle("selected", bet==="xiu");
+document.querySelectorAll('.choice-circle').forEach(el => {
+    el.addEventListener('click', ()=> {
+        betChoice = el.id;
+        alert('Bạn chọn: ' + betChoice.toUpperCase());
+    });
+});
+
+document.getElementById('btn-auto-open').addEventListener('click', () => {
+    autoOpen = !autoOpen;
+    alert('Tự mở chén: ' + (autoOpen ? 'Bật' : 'Tắt'));
+});
+
+// Fake chat
+let chatBox = document.getElementById('chat-box');
+let viewers = document.getElementById('viewer-count');
+
+function fakeChat(){
+    let msgs = [
+        "T tất tay Xỉu nè ae",
+        "Ăn 20tr rồi kìa",
+        "Ông kia vừa thắng lớn",
+        "Cược 1000 xu thôi"
+    ];
+    let msg = msgs[Math.floor(Math.random()*msgs.length)];
+    chatBox.innerHTML += "<div>"+msg+"</div>";
+    chatBox.scrollTop = chatBox.scrollHeight;
+    viewers.innerText = Math.floor(Math.random()*1000);
 }
-betTai.onclick = ()=>selectBet("tai");
-betXiu.onclick = ()=>selectBet("xiu");
+setInterval(fakeChat, 2000);
 
-function randomDice(){
-  return Math.floor(Math.random()*6)+1;
-}
-
-function shakeCup(){
-  const d1=randomDice(),d2=randomDice(),d3=randomDice();
-  dice.style.opacity=1;
-  dice.children[0].src=`assets/dice${d1}.png`;
-  dice.children[1].src=`assets/dice${d2}.png`;
-  dice.children[2].src=`assets/dice${d3}.png`;
-  const sum=d1+d2+d3;
-  const result=sum>=11?"tai":"xiu";
-  history.push(result);
-  if(history.length>20) history.shift();
-  renderHistory();
-  addFakeChat(result);
-}
-
-shakeBtn.onclick=shakeCup;
-
-function renderHistory(){
-  historyCircles.innerHTML="";
-  history.forEach(r=>{
-    const c=document.createElement("div");
-    c.classList.add("history-circle",r);
-    historyCircles.appendChild(c);
-  });
-}
-
+// Countdown
 function startCountdown(){
-  countdown=40;
-  timerSpan.textContent=countdown;
-  clearInterval(countdownInterval);
-  countdownInterval=setInterval(()=>{
-    countdown--;
-    timerSpan.textContent=countdown;
-    if(countdown<=0){
-      clearInterval(countdownInterval);
-      if(autoOpen.checked) shakeCup();
-    }
-  },1000);
+    countdown = 40;
+    document.getElementById('countdown').innerText = countdown;
+    countdownInterval = setInterval(()=>{
+        countdown--;
+        document.getElementById('countdown').innerText = countdown;
+        if(countdown <=0){
+            clearInterval(countdownInterval);
+            openCup();
+        }
+    },1000);
 }
-startCountdown();
 
-function addFakeChat(result){
-  const messages=[
-    `T tất tay ${result} nè ae`,
-    `Ông kia vừa ăn 20tr kìa`,
-    `Chúc mừng ae thắng ${result}`
-  ];
-  chatBox.innerHTML+=`<div>${messages[Math.floor(Math.random()*messages.length)]}</div>`;
-  chatBox.scrollTop=chatBox.scrollHeight;
-  viewerCount.textContent=Math.floor(Math.random()*500+100);
+// Đặt cược
+document.getElementById('btn-bet').addEventListener('click', () => {
+    let betAmount = parseInt(document.getElementById('bet-input').value);
+    if(!currentUser){ alert('Đăng nhập trước!'); return; }
+    if(!betChoice){ alert('Chọn TÀI hoặc XỈU trước!'); return; }
+    if(betAmount > xu){ alert("Không đủ xu để đặt cược!"); return; }
+    if(betAmount>0){
+        xu -= betAmount;
+        users[currentUser].xu = xu;
+        users[currentUser].history.push(`Đặt cược ${betAmount} xu vào ${betChoice}`);
+        localStorage.setItem('users', JSON.stringify(users));
+        document.getElementById('xu-balance').innerText = xu;
+        document.getElementById('xu-balance-account').innerText = xu;
+        addHistory(`Đặt cược ${betAmount} xu vào ${betChoice}`);
+        startCountdown();
+    }
+});
+
+// Mở chén
+function openCup(){
+    let diceArea = document.getElementById('dice-area');
+    diceArea.innerHTML = '';
+    for(let i=0;i<3;i++){
+        let dice = Math.floor(Math.random()*6)+1;
+        let img = document.createElement('img');
+        img.src = `assets/dice${dice}.png`;
+        diceArea.appendChild(img);
+    }
+    // Tính tổng để ra Tài/Xỉu
+    let total = Array.from(diceArea.children).reduce((sum,img)=>{
+        return sum + parseInt(img.src.match(/\d(?=\.png)/)[0]);
+    },0);
+    let result = total>10?'tai':'xiu';
+    alert('Kết quả: '+result.toUpperCase());
 }
+
