@@ -7,8 +7,7 @@
 </head>
 <body>
 <header>
-    <img src="assets/banner.png" alt="Logo" class="logo">
-    <h1>Tài Xỉu Sunwin</h1>
+    <h1 style="text-align:center; margin:10px 0; color:#fff;">Tài Xỉu Sunwin</h1>
 </header>
 
 <nav>
@@ -18,10 +17,8 @@
 
 <main>
     <!-- TAB GAME -->
-    <div id="game-tab" class="tab-content active">
-        <div class="balance">
-            Xu hiện có: <span id="xu-balance">0</span>
-        </div>
+    <div id="game-tab" class="tab-content">
+        <div class="balance">Xu hiện có: <span id="xu-balance">0</span></div>
 
         <div class="game-ui">
             <div class="choice-circle" id="tai">TÀI</div>
@@ -32,9 +29,8 @@
         <input type="number" id="bet-input" placeholder="Nhập số xu cược" min="1">
 
         <div class="cup-area">
-            <img src="assets/cup.png" id="cup" alt="Chén" />
-            <div class="dice-area" id="dice-area"></div>
-            <button id="btn-auto-open">Tự mở chén</button>
+            <button id="btn-open-cup">Mở chén</button>
+            <div id="dice-result"></div>
             <div id="countdown">40</div>
         </div>
 
@@ -51,7 +47,7 @@
     </div>
 
     <!-- TAB ACCOUNT -->
-    <div id="account-tab" class="tab-content">
+    <div id="account-tab" class="tab-content active">
         <div id="auth-section">
             <h2>Đăng nhập / Đăng ký</h2>
             <input type="text" id="username" placeholder="Username" />
