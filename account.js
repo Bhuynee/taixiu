@@ -1,13 +1,19 @@
-// USERS
 let users = JSON.parse(localStorage.getItem('users')) || {};
 let currentUser = localStorage.getItem('currentUser') || null;
 let xu = 0;
 
-// Load current user
-if(currentUser && users[currentUser]){
-    xu = users[currentUser].xu;
+function updateBalanceUI(){
     document.getElementById('xu-balance').innerText = xu;
     document.getElementById('xu-balance-account').innerText = xu;
+}
+
+// Load current user
+window.onload = function(){
+    if(currentUser && users[currentUser]){
+        xu = users[currentUser].xu;
+        updateBalanceUI();
+        users[currentUser].history.forEach(h => addHistory(h));
+    }
 }
 
 // Đăng ký
@@ -16,73 +22,72 @@ document.getElementById('btn-register').addEventListener('click', () => {
     let p = document.getElementById('password').value.trim();
     if(!u || !p){ alert('Nhập đầy đủ'); return; }
     if(users[u]){ alert('Username đã tồn tại'); return; }
-    users[u] = { password: p, xu: 0, history: [] };
+    users[u] = { password:p, xu:0, history:[] };
     localStorage.setItem('users', JSON.stringify(users));
-    alert('Đăng ký thành công!');
+    alert('Đăng ký thành công! Đăng nhập ngay.');
 });
 
 // Đăng nhập
-document.getElementById('btn-login').addEventListener('click', () => {
+document.getElementById('btn-login').addEventListener('click', ()=>{
     let u = document.getElementById('username').value.trim();
     let p = document.getElementById('password').value.trim();
-    if(users[u] && users[u].password === p){
+    if(users[u] && users[u].password===p){
         currentUser = u;
         localStorage.setItem('currentUser', currentUser);
         xu = users[u].xu;
-        document.getElementById('xu-balance').innerText = xu;
-        document.getElementById('xu-balance-account').innerText = xu;
+        updateBalanceUI();
         alert('Đăng nhập thành công!');
+        users[u].history.forEach(h => addHistory(h));
     } else { alert('Sai username hoặc password'); }
 });
 
-// Nhập key nhận 50.000 xu
-document.getElementById('btn-key').addEventListener('click', () => {
-    const key = document.getElementById('key-input').value.trim();
+// Key nhận 50.000 xu
+document.getElementById('btn-key').addEventListener('click', ()=>{
     if(!currentUser){ alert('Đăng nhập trước!'); return; }
-    if(key === "50000"){
+    let key = document.getElementById('key-input').value.trim();
+    if(key==="50000"){
         xu += 50000;
         users[currentUser].xu = xu;
+        users[currentUser].history.push('Nhận 50.000 xu từ key');
         localStorage.setItem('users', JSON.stringify(users));
-        document.getElementById('xu-balance').innerText = xu;
-        document.getElementById('xu-balance-account').innerText = xu;
+        updateBalanceUI();
+        addHistory('Nhận 50.000 xu từ key');
         alert('Bạn đã nhận 50.000 xu!');
-    } else { alert('Key không hợp lệ'); }
+    } else alert('Key không hợp lệ');
 });
 
 // Nạp xu
-document.getElementById('btn-nap').addEventListener('click', () => {
+document.getElementById('btn-nap').addEventListener('click', ()=>{
     if(!currentUser){ alert('Đăng nhập trước!'); return; }
     let nap = parseInt(document.getElementById('xu-nap').value);
     if(nap>0){
-        xu += nap;
+        xu+=nap;
         users[currentUser].xu = xu;
         users[currentUser].history.push(`Nạp ${nap} xu`);
         localStorage.setItem('users', JSON.stringify(users));
-        document.getElementById('xu-balance').innerText = xu;
-        document.getElementById('xu-balance-account').innerText = xu;
+        updateBalanceUI();
         addHistory(`Nạp ${nap} xu`);
         document.getElementById('xu-nap').value='';
     }
 });
 
 // Rút xu
-document.getElementById('btn-rut').addEventListener('click', () => {
+document.getElementById('btn-rut').addEventListener('click', ()=>{
     if(!currentUser){ alert('Đăng nhập trước!'); return; }
     let rut = parseInt(document.getElementById('xu-rut').value);
-    if(rut > xu){ alert("Không đủ xu để rút!"); return; }
+    if(rut>xu){ alert('Không đủ xu để rút!'); return; }
     if(rut>0){
-        xu -= rut;
+        xu-=rut;
         users[currentUser].xu = xu;
         users[currentUser].history.push(`Rút ${rut} xu`);
         localStorage.setItem('users', JSON.stringify(users));
-        document.getElementById('xu-balance').innerText = xu;
-        document.getElementById('xu-balance-account').innerText = xu;
+        updateBalanceUI();
         addHistory(`Rút ${rut} xu`);
         document.getElementById('xu-rut').value='';
     }
 });
 
-// Thêm lịch sử
+// Lịch sử
 function addHistory(text){
     let li = document.createElement('li');
     li.textContent = text;
