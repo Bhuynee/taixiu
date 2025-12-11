@@ -1,14 +1,12 @@
 {
   "name": "taixiu-node",
   "version": "1.0.0",
-  "description": "Web Tài Xỉu Sunwin Node.js",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
-  "author": "BHuy",
-  "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "axios": "^1.4.0"
   }
 }
