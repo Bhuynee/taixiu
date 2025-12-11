@@ -1,31 +1,114 @@
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #8B0000, #000);
-  color: #fff;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(#800000, #000000);
+    color: #fff;
 }
 
-header {text-align:center;padding:10px;background:#330000;font-size:24px;font-weight:bold;}
-.tabs {display:flex;justify-content:center;margin:10px 0;}
-.tab-btn {background:#660000;color:#fff;border:none;padding:10px 20px;margin:0 5px;cursor:pointer;font-weight:bold;}
-.tab-btn.active {background:#ff0000;}
-.tab-content {display:none;padding:10px;}
-.tab-content.active {display:block;}
-.bet-ui {display:flex;justify-content:space-around;align-items:center;margin:10px 0;}
-.bet-option {width:80px;height:80px;background:#222;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;font-size:18px;font-weight:bold;}
-.bet-option.selected {border:3px solid yellow;}
-.dice-container {position:relative;width:150px;height:150px;margin:20px auto;}
-.cup {position:absolute;top:0;left:0;width:100%;transition:transform 0.3s ease;z-index:2;}
-.dice {position:absolute;top:0;left:0;width:100%;display:flex;justify-content:space-around;opacity:0;transition:opacity 0.5s ease;}
-.dice img {width:40px;height:40px;}
-.controls {text-align:center;margin-top:10px;}
-.countdown {text-align:center;margin-top:10px;font-size:18px;font-weight:bold;}
-.history, .fake-chat {margin-top:20px;}
-#history-circles {display:flex;flex-wrap:wrap;gap:5px;}
-.history-circle {width:20px;height:20px;border-radius:50%;}
-.history-circle.tai {background:red;}
-.history-circle.xiu {background:green;}
-.fake-chat {height:150px;overflow-y:auto;background:#111;padding:5px;border-radius:5px;}
-.account-actions, .account-key {margin:10px 0;}
-input {padding:5px;margin:2px 0;}
-button {padding:5px 10px;margin-left:5px;cursor:pointer;}
+header {
+    text-align: center;
+    padding: 10px;
+    background-color: #330000;
+}
+
+.logo {
+    height: 50px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+nav button {
+    margin: 0 5px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #550000;
+    color: #fff;
+    cursor: pointer;
+}
+
+.tab-content {
+    display: none;
+    padding: 20px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.choice-circle {
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #990000;
+    display: inline-block;
+    margin: 0 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button#btn-bet, #btn-auto-open {
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.cup-area {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.cup-area img {
+    width: 100px;
+}
+
+.dice-area img {
+    width: 50px;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.fake-chat {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: 200px;
+    background-color: rgba(50,0,0,0.7);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.fake-chat #chat-box {
+    height: 150px;
+    overflow-y: auto;
+    border: 1px solid #fff;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+input, button {
+    margin: 5px 0;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #330000;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .choice-circle { width: 60px; height: 60px; line-height: 60px; }
+    .cup-area img { width: 80px; }
+}
