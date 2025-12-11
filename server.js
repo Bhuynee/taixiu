@@ -98,5 +98,8 @@ app.post("/bet",(req,res)=>{
     addHistory(username,"bet",`Đặt cược ${bet} xu vào ${choice}`);
     res.json({success:true,xu:users[username].xu,history:users[username].history});
 });
+app.get("/test", (req, res) => {
+    res.send("Server OK");
+});
 
 app.listen(PORT,()=>console.log(`🚀 Server chạy: http://localhost:${PORT}`));
