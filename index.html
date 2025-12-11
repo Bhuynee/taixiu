@@ -2,40 +2,90 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Tài Xỉu 2D Final</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Tài Xỉu</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h2>🎲 TÀI XỈU 2D FINAL</h2>
+<header>
+  <h1> Tài Xỉu</h1>
+</header>
 
-<div id="top">
-  Xu: <span id="coin">0</span>
-  <button onclick="napXu()">+ Nạp xu</button>
+<div class="tabs">
+  <button class="tab-btn active" data-tab="game-tab">Chơi Tài Xỉu</button>
+  <button class="tab-btn" data-tab="account-tab">Quản lý tài khoản</button>
 </div>
 
-<div id="bet">
-  <input type="number" id="betAmount" placeholder="Nhập xu" min="1">
-  <button onclick="bet('tai')">Tài</button>
-  <button onclick="bet('xiu')">Xỉu</button>
+<div id="game-tab" class="tab-content active">
+  <div class="bet-ui">
+    <div class="bet-option" id="bet-tai">TÀI</div>
+    <button id="place-bet">ĐẶT CƯỢC</button>
+    <div class="bet-option" id="bet-xiu">XỈU</div>
+  </div>
+
+  <div class="dice-container">
+    <img id="cup" src="assets/cup.png" alt="Chén úp" class="cup">
+    <div id="dice" class="dice">
+      <img src="assets/dice1.png" alt="Xúc xắc 1">
+      <img src="assets/dice2.png" alt="Xúc xắc 2">
+      <img src="assets/dice3.png" alt="Xúc xắc 3">
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="shakeBtn">Lắc / Mở chén</button>
+    <label><input type="checkbox" id="autoOpen"> Tự mở chén</label>
+  </div>
+
+  <div class="countdown">Thời gian: <span id="timer">40</span>s</div>
+
+  <div class="history">
+    <h3>Lịch sử cầu</h3>
+    <div id="history-circles"></div>
+  </div>
+
+  <div class="fake-chat">
+    <h3>Fake Chat Livestream</h3>
+    <div id="chat-box"></div>
+    <div>Người xem: <span id="viewer-count">0</span></div>
+  </div>
 </div>
 
-<div id="cupDiv">
-  <img id="cup" src="assets/cup/cup.png">
-  <button id="openCupBtn">Mở chén</button>
-  <label><input type="checkbox" id="autoOpen"> Tự mở</label>
-  <div id="timer">40</div>
+<div id="account-tab" class="tab-content">
+  <h2>Tài khoản</h2>
+  <div id="login-form">
+    <input type="text" id="username" placeholder="Tài khoản">
+    <input type="password" id="password" placeholder="Mật khẩu">
+    <button id="loginBtn">Đăng nhập</button>
+  </div>
+
+  <div id="account-info" style="display:none;">
+    <p>Xin chào, <span id="acc-name"></span></p>
+    <p>Xu: <span id="acc-xu">0</span></p>
+
+    <div class="account-actions">
+      <input type="number" id="topup-amount" placeholder="Nhập số tiền nạp">
+      <button id="topupBtn">Nạp Xu</button>
+      <input type="number" id="withdraw-amount" placeholder="Nhập số tiền rút">
+      <button id="withdrawBtn">Rút Xu</button>
+    </div>
+
+    <div class="account-key">
+      <input type="text" id="key-input" placeholder="Nhập key nhận 50000 xu">
+      <button id="redeemKeyBtn">Nhận Xu</button>
+    </div>
+
+    <div class="account-history">
+      <h3>Lịch sử</h3>
+      <div id="history-log"></div>
+    </div>
+
+    <button id="logoutBtn">Đăng xuất</button>
+  </div>
 </div>
 
-<div id="table">
-  <img id="d1"><img id="d2"><img id="d3">
-</div>
-
-<div id="road"></div>
-
-<div id="chatBox">
-  <div id="chat"></div>
-</div>
-
+<script src="tabs.js"></script>
 <script src="game.js"></script>
+<script src="account.js"></script>
 </body>
 </html>
