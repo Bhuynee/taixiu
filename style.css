@@ -1,9 +1,0 @@
-body { margin:0; font-family:Arial; background:linear-gradient(#800000,#000); color:#fff; }
-header { padding:10px; background:#330000; }
-input, button { margin:5px; padding:5px; border-radius:5px; border:none; }
-button { cursor:pointer; background:#550000; color:#fff; }
-#account-section, #game-section { padding:20px; }
-.choice-circle { width:80px; height:80px; line-height:80px; text-align:center; border-radius:50%; background:#990000; display:inline-block; margin:0 20px; cursor:pointer; font-weight:bold; }
-#dice-result, #countdown { margin-top:10px; font-size:18px; }
-.fake-chat { border:1px solid #fff; padding:5px; width:200px; height:150px; overflow-y:auto; margin-top:10px; background:rgba(50,0,0,0.7);}
-@media screen and (max-width:600px){ .choice-circle{width:60px;height:60px;line-height:60px;} .fake-chat{width:150px;height:120px;} }
