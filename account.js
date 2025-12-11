@@ -3,8 +3,10 @@ window.addEventListener('DOMContentLoaded', ()=>{
     let currentUser = localStorage.getItem('currentUser') || null;
     let xu = 0;
 
+    const accountSection = document.getElementById('account-section');
+    const gameSection = document.getElementById('game-section');
+
     function updateBalanceUI(){
-        document.getElementById('xu-balance').innerText = xu;
         document.getElementById('xu-balance-account').innerText = xu;
     }
 
@@ -14,10 +16,20 @@ window.addEventListener('DOMContentLoaded', ()=>{
         document.getElementById('history-list').prepend(li);
     }
 
+    function showAfterLogin(){
+        // Hiện game + nạp/rút
+        gameSection.style.display='block';
+        accountSection.querySelectorAll('#xu-nap,#btn-nap,#xu-rut,#btn-rut').forEach(el=>el.style.display='inline-block');
+    }
+
     if(currentUser && users[currentUser]){
         xu = users[currentUser].xu;
         updateBalanceUI();
+        showAfterLogin();
         users[currentUser].history.forEach(h => addHistory(h));
+    } else {
+        gameSection.style.display='none';
+        accountSection.querySelectorAll('#xu-nap,#btn-nap,#xu-rut,#btn-rut').forEach(el=>el.style.display='none');
     }
 
     document.getElementById('btn-register').addEventListener('click', ()=>{
@@ -38,6 +50,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
             localStorage.setItem('currentUser',currentUser);
             xu=users[u].xu;
             updateBalanceUI();
+            showAfterLogin();
             alert('Đăng nhập thành công!');
             users[u].history.forEach(h=>addHistory(h));
         } else alert('Sai username hoặc password');
@@ -78,16 +91,5 @@ window.addEventListener('DOMContentLoaded', ()=>{
             updateBalanceUI();
             document.getElementById('xu-rut').value='';
         }
-    });
-
-    // Tab switch
-    document.querySelectorAll('.tab-btn').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-            let target = btn.dataset.tab;
-            document.querySelectorAll('.tab-content').forEach(tab=>{
-                tab.classList.remove('active');
-            });
-            document.getElementById(target).classList.add('active');
-        });
     });
 });
