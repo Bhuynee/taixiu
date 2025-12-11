@@ -10,80 +10,53 @@
 <h1 style="text-align:center; margin:10px 0; color:#fff;">Tài Xỉu Sunwin</h1>
 </header>
 
-<nav>
-<button class="tab-btn" data-tab="game-tab">Chơi Tài Xỉu</button>
-<button class="tab-btn" data-tab="account-tab">Tài khoản</button>
-</nav>
-
 <main>
-<!-- TAB GAME -->
-<div id="game-tab" class="tab-content">
-<div class="balance">Xu hiện có: <span id="xu-balance">0</span></div>
-
-<div class="game-ui">
-<div class="choice-circle" id="tai">TÀI</div>
-<button id="btn-bet">ĐẶT CƯỢC</button>
-<div class="choice-circle" id="xiu">XỈU</div>
-</div>
-
-<input type="number" id="bet-input" placeholder="Nhập số xu cược" min="1">
-
-<div class="cup-area">
-<button id="btn-open-cup">Mở chén</button>
-<div id="dice-result"></div>
-<div id="countdown">40</div>
-</div>
-
-<div class="history">
-<h3>Lịch sử cầu</h3>
-<div id="history-circle"></div>
-</div>
-
-<div class="fake-chat">
-<h3>Fake Chat</h3>
-<div id="chat-box"></div>
-<div>Người xem: <span id="viewer-count">0</span></div>
-</div>
-</div>
-
-<!-- TAB ACCOUNT -->
-<div id="account-tab" class="tab-content active">
-<div id="auth-section">
+<!-- ACCOUNT SECTION -->
+<div id="account-section">
 <h2>Đăng nhập / Đăng ký</h2>
 <input type="text" id="username" placeholder="Username" />
 <input type="password" id="password" placeholder="Password" />
 <button id="btn-login">Đăng nhập</button>
 <button id="btn-register">Đăng ký</button>
-</div>
 
-<div id="key-section">
+<h3>Tài khoản: <span id="xu-balance-account">0</span> xu</h3>
+
 <input type="text" id="key-input" placeholder="Nhập key nhận 50.000 xu" />
 <button id="btn-key">Nhận xu</button>
-</div>
 
-<div id="account-section">
-<h2>Tài khoản của bạn: <span id="xu-balance-account">0</span> xu</h2>
-
-<div id="nap-xu">
-<input type="number" id="xu-nap" placeholder="Nhập số xu muốn nạp" />
+<input type="number" id="xu-nap" placeholder="Nạp xu" />
 <button id="btn-nap">Nạp xu</button>
-</div>
 
-<div id="rut-xu">
-<input type="number" id="xu-rut" placeholder="Nhập số xu muốn rút" />
+<input type="number" id="xu-rut" placeholder="Rút xu" />
 <button id="btn-rut">Rút xu</button>
 </div>
 
-<div id="lich-su">
+<!-- GAME SECTION (ẩn khi chưa login) -->
+<div id="game-section" style="display:none;">
+<h2>Chơi Tài Xỉu</h2>
+<div class="choice-circle" id="tai">TÀI</div>
+<div class="choice-circle" id="xiu">XỈU</div>
+<br>
+<input type="number" id="bet-input" placeholder="Nhập số xu cược" />
+<button id="btn-bet">Đặt cược</button>
+<button id="btn-open-cup">Mở chén</button>
+
+<div id="dice-result"></div>
+<div id="countdown">40</div>
+
 <h3>Lịch sử đặt cược</h3>
 <ul id="history-list"></ul>
-</div>
+
+<div class="fake-chat">
+<h4>Fake Chat</h4>
+<div id="chat-box"></div>
+<div>Người xem: <span id="viewer-count">0</span></div>
 </div>
 </div>
 </main>
 
 <footer>
-<p>&copy; </p>
+<p style="text-align:center; color:#fff;">&copy; </p>
 </footer>
 
 <script src="account.js"></script>
