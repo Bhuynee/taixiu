@@ -39,7 +39,7 @@ document.getElementById('btn-login').addEventListener('click', () => {
 document.getElementById('btn-key').addEventListener('click', () => {
     const key = document.getElementById('key-input').value.trim();
     if(!currentUser){ alert('Đăng nhập trước!'); return; }
-    if(key === "BHUYVIP50000"){
+    if(key === "50000"){
         xu += 50000;
         users[currentUser].xu = xu;
         localStorage.setItem('users', JSON.stringify(users));
