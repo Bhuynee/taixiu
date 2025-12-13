@@ -1,9 +1,8 @@
-const loginBtn = document.getElementById("btn-login");
-const registerBtn = document.getElementById("btn-register");
-const xuSpan = document.getElementById("xu-balance-account");
+const accountSection = document.getElementById("account-section");
 const gameSection = document.getElementById("game-section");
+const xuSpan = document.getElementById("xu-balance");
 
-loginBtn.onclick = async () => {
+document.getElementById("btn-login").onclick = async () => {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
@@ -20,11 +19,12 @@ loginBtn.onclick = async () => {
     return;
   }
 
+  accountSection.style.display = "none"; // ẨN LOGIN
+  gameSection.style.display = "block";   // HIỆN GAME
   xuSpan.innerText = data.xu;
-  gameSection.style.display = "block";
 };
 
-registerBtn.onclick = async () => {
+document.getElementById("btn-register").onclick = async () => {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
@@ -35,6 +35,5 @@ registerBtn.onclick = async () => {
   });
 
   const data = await res.json();
-
   alert(data.success ? "Đăng ký thành công" : data.msg);
 };
