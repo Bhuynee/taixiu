@@ -8,22 +8,13 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
-// đọc users
 function readUsers() {
   return JSON.parse(fs.readFileSync("users.json", "utf8"));
 }
-
-// ghi users
 function writeUsers(data) {
   fs.writeFileSync("users.json", JSON.stringify(data, null, 2));
 }
 
-// test
-app.get("/test", (req, res) => {
-  res.send("SERVER OK");
-});
-
-// đăng ký
 app.post("/api/register", (req, res) => {
   const { username, password } = req.body;
   const users = readUsers();
@@ -42,7 +33,6 @@ app.post("/api/register", (req, res) => {
   res.json({ success: true });
 });
 
-// đăng nhập
 app.post("/api/login", (req, res) => {
   const { username, password } = req.body;
   const users = readUsers();
@@ -55,5 +45,5 @@ app.post("/api/login", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server chạy: http://localhost:${PORT}`);
+  console.log(`🚀 Server chạy http://localhost:${PORT}`);
 });
